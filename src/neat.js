@@ -135,7 +135,8 @@ Neat.prototype = {
    * Selects a random mutation method for a genome according to the parameters
    */
   selectMutationMethod: function (genome) {
-    var mutationMethod = this.mutation[Math.floor(Math.random() * this.mutation.length)];
+    var mutation = this.efficientMutation ? genome.getPossibleMutations(this.mutation) : this.mutation;
+    var mutationMethod = mutation[Math.floor(Math.random() * mutation.length)];
 
     if (mutationMethod === methods.mutation.ADD_NODE && genome.nodes.length >= this.maxNodes) {
       if (config.warnings) console.warn('maxNodes exceeded!');
